@@ -53,7 +53,7 @@ const PickMeals: FunctionComponent<PickMealsProps> = ({meals, headers, setViewSt
             <img src={Logo} className="h-full" alt="Eden Logo"/>
           </figure>
           <div className="text-sm text-gray-400">
-            Built by <a href="https://twitter.com/silasadedoyin" target="_blank" className="text-primary font-display">Silas</a> | <a href="https://github.com/faarda/pick-eden-meals" target="_blank" className="text-primary font-display">Github</a>
+            Built by <a href="https://twitter.com/silasadedoyin"  rel="noreferrer" target="_blank" className="text-primary font-display">Silas</a> | <a href="https://github.com/faarda/pick-eden-meals" rel="noreferrer" target="_blank" className="text-primary font-display">Github</a>
           </div>
         </div>
         <div className="text-red-200 text-base md:text-lg font-display mt-4">
