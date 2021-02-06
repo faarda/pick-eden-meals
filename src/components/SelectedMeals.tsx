@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useMemo, useState } from 'react'
 
 interface SelectedMealsProps {
   selectedMealsList: string[];
@@ -10,13 +10,13 @@ const SelectedMeals: FunctionComponent<SelectedMealsProps> = ({selectedMealsList
 
   const emptyMeals = selectedMealsList.length < 1;
 
-  const selectedMealsText = () => {
+  const selectedMealsText = useMemo(() => {
     return selectedMealsList.reduce((meals, meal, index) => { return `${meals} \n ${index + 1}. ${meal}`}, '')
-  }
+  }, [selectedMealsList]);
 
   const copyToClipboard = () => {
     const el = document.createElement('textarea');
-    el.value = selectedMealsText();
+    el.value = selectedMealsText;
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
@@ -52,7 +52,7 @@ const SelectedMeals: FunctionComponent<SelectedMealsProps> = ({selectedMealsList
     </ul>
 
     <div className="flex">
-      <a target="_blank" rel="noreferrer" href={`https://api.whatsapp.com/send?phone=${gardenerPhone.replace('0', '+234')}&text=${selectedMealsText()}`} onClick={e => emptyMeals ? e.preventDefault() : ''}
+      <a target="_blank" rel="noreferrer" href={`https://api.whatsapp.com/send?phone=${gardenerPhone.replace('0', '+234')}&text=${encodeURIComponent(selectedMealsText)}`} onClick={e => emptyMeals ? e.preventDefault() : ''}
         className={`flex-1 mr-2 outline-none focus:outline-none mt-5 flex h-12 rounded-lg bg-primary text-white text-sm font-medium justify-center items-center ${emptyMeals ? 'opacity-70' : 'opacity-100'}`}>
         Send to Gardner
       </a>
