@@ -29,7 +29,7 @@ const SelectedMeals: FunctionComponent<SelectedMealsProps> = ({selectedMealsList
       
       <button className={`outline-none focus:outline-none color-black md:hidden transform transition-transform duration-75 ${isBottomSheetOpen ? 'rotate-180' : 'rotate-0'}`}>
         <svg width="12" height="6" viewBox="0 0 38 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M37 1L19 18L1 0.999998" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M37 1L19 18L1 0.999998" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </button>
     </button>

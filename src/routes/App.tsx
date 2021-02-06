@@ -17,6 +17,10 @@ const App = () => {
     setViewState(VIEW_STATES.PRE_LOAD);
   }
 
+  const removeCommas = (text: string) => {
+    return text.split(",").join("").split("-").join("");
+  }
+
   const fetchData = () => {
     setViewState(VIEW_STATES.LOADING);
     try{
@@ -28,23 +32,25 @@ const App = () => {
         const newMeals: any[] = [];
   
         rows.forEach((meal, id) => {
-          const menu = meal[0].split("\n").join(" ");
-          const proteins = meal[1].split("\n");
-          const mainSides = meal[2].split("\n");
-          const otherSides = meal[3].split("\n");
-
-          // const sidesArray
-          const mealArrays = proteins.map(protein => {
-            return [
-              mainSides.map(mainSide => {
-                return otherSides.map(otherSide => {
-                  return [menu, protein,mainSide,otherSide]
+          if(meal[0]){
+            const menu = meal[0].toString().split("\n").join(" ");
+            const proteins = meal[1].toString().split("\n");
+            const mainSides = meal[2].toString().split("\n");
+            const otherSides = meal[3].toString().split("\n");
+  
+            // const sidesArray
+            const mealArrays = proteins.map(protein => {
+              return [
+                mainSides.map(mainSide => {
+                  return otherSides.map(otherSide => {
+                    return [removeCommas(menu), removeCommas(protein), removeCommas(mainSide) , removeCommas(otherSide)]
+                  })
                 })
-              })
-            ]
-          })
-
-          newMeals.push(...mealArrays[0][0][0]);
+              ]
+            })
+  
+            newMeals.push(...mealArrays[0][0][0]);
+          }
         });
 
         setMeals(newMeals);
