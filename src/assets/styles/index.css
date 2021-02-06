@@ -1,0 +1,29 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&family=Roboto:wght@300;400&display=swap');
+
+.loader{
+   padding:0px;
+   border-top-color:#18B157;
+   border-bottom-color:rgba(156, 163, 175, 0.2);
+   border-left-color:#18B157;
+   border-right-color:rgba(156, 163, 175, 0.2);
+}
+
+.min-height-min-content{
+   min-height: min-content;
+}
+
+.aside{
+   width: max(300px, 32%);
+}
+
+@media (max-width: 768px) { 
+   .aside{
+      width: 100%;
+      max-height: 80vh;
+   }
+}
