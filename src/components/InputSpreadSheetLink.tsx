@@ -33,6 +33,10 @@ const InputSpreadSheetLink: FunctionComponent<InputSpreadSheetLinkProps> = ({set
           Continue
         </button>
       </div>
+
+      <div className="absolute bottom-0 text-sm text-gray-400 w-full py-5 left-0 text-center">
+          Built by <a href="https://twitter.com/silasadedoyin" target="_blank" className="text-primary font-display">Silas</a> | <a href="https://github.com/faarda/pick-eden-meals" target="_blank" className="text-primary font-display">Github</a>
+      </div>
     </div>
   )
 }

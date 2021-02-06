@@ -48,9 +48,14 @@ const PickMeals: FunctionComponent<PickMealsProps> = ({meals, headers, setViewSt
   return (
     <div className="flex h-screen overflow-hidden content-start">
       <div className="p-6.25 sm:p-8 md:p-12.5 h-full flex-1 flex flex-col min-w-0">
-        <figure className="h-7" >
-          <img src={Logo} className="h-full" alt="Eden Logo"/>
-        </figure>
+        <div className="flex items-center justify-between">
+          <figure className="h-7" >
+            <img src={Logo} className="h-full" alt="Eden Logo"/>
+          </figure>
+          <div className="text-sm text-gray-400">
+            Built by <a href="https://twitter.com/silasadedoyin" target="_blank" className="text-primary font-display">Silas</a> | <a href="https://github.com/faarda/pick-eden-meals" target="_blank" className="text-primary font-display">Github</a>
+          </div>
+        </div>
         <div className="text-red-200 text-base md:text-lg font-display mt-4">
           <span className="text-black cursor-pointer" onClick={() => setViewState('pre-load')}>Home</span>
           <span className="text-gray-400"> / </span>
