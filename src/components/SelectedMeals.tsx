@@ -51,14 +51,14 @@ const SelectedMeals: FunctionComponent<SelectedMealsProps> = ({selectedMealsList
       }
     </ul>
 
-    <div className="flex">
+    <div className="flex py-1.5 mt-5">
       <a target="_blank" rel="noreferrer" href={`https://api.whatsapp.com/send?phone=${gardenerPhone.replace('0', '+234')}&text=${encodeURIComponent(selectedMealsText)}`} onClick={e => emptyMeals ? e.preventDefault() : ''}
-        className={`flex-1 mr-2 outline-none focus:outline-none mt-5 flex h-12 rounded-lg bg-primary text-white text-sm font-medium justify-center items-center ${emptyMeals ? 'opacity-70' : 'opacity-100'}`}>
+        className={`flex-1 mr-2 outline-none focus:outline-none  flex h-12 rounded-lg bg-primary text-white text-sm font-medium justify-center items-center ${emptyMeals ? 'opacity-70' : 'opacity-100'}`}>
         Send to Gardner
       </a>
       <button 
         onClick={() => copyToClipboard()} disabled={emptyMeals}
-        className="outline-none focus:outline-none mt-5 px-3.5 flex h-12 rounded-lg bg-white disabled:opacity-70 text-gray-500 border border-gray-400 disabled:cursor-not-allowed hover:text-primary hover:border-primary  text-sm font-medium justify-center items-center">
+        className="outline-none focus:outline-none px-3.5 flex h-12 rounded-lg bg-white disabled:opacity-70 text-gray-500 border border-gray-400 disabled:cursor-not-allowed hover:text-primary hover:border-primary  text-sm font-medium justify-center items-center">
         Copy Meals
       </button>
     </div>
