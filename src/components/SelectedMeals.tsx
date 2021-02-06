@@ -24,7 +24,7 @@ const SelectedMeals: FunctionComponent<SelectedMealsProps> = ({selectedMealsList
   };
 
   return (
-    <aside className={`mb-5 transition-transform duration-300 ease-out transform md:mb-0 md:translate-y-0 ${isBottomSheetOpen ? 'translate-y-0' : 'translate-y-5'} flex flex-col min-w-0 aside  md:h-full border-0 md:border-l border-gray-200 px-6.25 py-5 md:pt-12.5 md:p-6.25 fixed md:relative bg-white bottom-0 rounded-tl-md rounded-tr-md md:rounded-none shadow-custom-negative-sm md:shadow-none`}>
+    <aside className={`transition-transform duration-300 ease-out transform md:mb-0 md:translate-y-0 ${isBottomSheetOpen ? 'translate-y-0 mb-0' : 'translate-y-5 mb-5'} flex flex-col min-w-0 aside  md:h-full border-0 md:border-l border-gray-200 px-6.25 py-5 md:pt-12.5 md:p-6.25 fixed md:relative bg-white bottom-0 rounded-tl-md rounded-tr-md md:rounded-none shadow-custom-negative-sm md:shadow-none`}>
     <div 
       className="flex justify-between items-center outline-none focus:outline-none" 
       onClick={() => setIsBottomSheetOpen(!isBottomSheetOpen)}
