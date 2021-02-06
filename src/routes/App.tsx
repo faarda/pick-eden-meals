@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import InputSpreadSheetLink from '../components/InputSpreadSheetLink';
 import PickMeals from '../components/PickMeals';
 import readXlsFile from 'read-excel-file'
+import GSheetsApi from 'g-sheets-api'
+// import TableTop from 'tabletop'
+import { VIEW_MODES } from '../utils/constants';
 // import Papa from 'papaparse'
 
 
 const VIEW_STATES = {PRE_LOAD: 'pre-load', LOADING: 'loading', LOADED: 'loaded', ERROR: 'error'}
 
 const App = () => {
-  const [spreadSheetFile, setSpreadSheetFile] = useState('');
+  const [spreadSheetFile, setSpreadSheetFile] = useState<File | null>(null);
   const [ viewState, setViewState ] = useState(VIEW_STATES.PRE_LOAD);
   const [ headers, setHeaders ] = useState<string[] | undefined>([]);
   const [ meals, setMeals ] = useState<string[][]>([]);
+  const [ gardenerPhone, setGardenerPhone ] = useState('');
+  const [spreadSheetLink, setSpreadSheetLink] = useState<string>('');
 
   const goBack = () => {
     setViewState(VIEW_STATES.PRE_LOAD);
@@ -21,62 +26,92 @@ const App = () => {
     return text.split(",").join("").split("-").join("");
   }
 
-  const fetchData = () => {
+  const fetchData = (mode: string) => {
     setViewState(VIEW_STATES.LOADING);
     try{
-      readXlsFile(spreadSheetFile)
-      .then((rows: string[][]) => {
-        const headers: string[] | undefined = rows.shift();
-        setHeaders(headers);
-        
-        const newMeals: any[] = [];
-  
-        rows.forEach((meal, id) => {
-          if(meal[0]){
-            const menu = meal[0].toString().split("\n").join(" ");
-            const proteins = meal[1].toString().split("\n");
-            const mainSides = meal[2].toString().split("\n");
-            const otherSides = meal[3].toString().split("\n");
-  
-            // const sidesArray
-            const mealArrays = proteins.map(protein => {
-              return [
-                mainSides.map(mainSide => {
-                  return otherSides.map(otherSide => {
-                    return [removeCommas(menu), removeCommas(protein), removeCommas(mainSide) , removeCommas(otherSide)]
-                  })
-                })
-              ]
-            })
-  
-            newMeals.push(...mealArrays[0][0][0]);
-          }
-        });
-
-        setMeals(newMeals);
-
-        setTimeout(() => {
-          setViewState(VIEW_STATES.LOADED)
-        }, 1000)
-        
-      })
-      .catch(() => {
-        setViewState(VIEW_STATES.ERROR);
-      })
+      if(mode === VIEW_MODES.PICK_FILE){
+        readFromFile();
+      }else {
+        readFromLink();
+      }
     } catch {
       setViewState(VIEW_STATES.ERROR);
     }
+  }
+
+  const readFromFile = () => {
+    readXlsFile(spreadSheetFile)
+    .then((rows: string[][]) => {
+      const headers: string[] | undefined = rows.shift();
+      setHeaders(headers);
+    
+      getMeals(rows);
+    })
+    .catch(() => {
+      setViewState(VIEW_STATES.ERROR);
+    })
+  }
+
+  const readFromLink = () => {
+    const fileID = spreadSheetLink.split('d/')[1].split("/")[0];
+
+    const readerOptions = {
+      sheetId: fileID,
+      returnAllResults: true
+    };
+
+    GSheetsApi(readerOptions, (results: {[key: string]: string}[]) => {
+      const mealsList = results.map(meals => {
+        return Object.values(meals);
+      })
+
+      setHeaders(Object.keys(results[0]));
+
+      getMeals(mealsList);
+    });
+  }
+
+  const getMeals = (rows: string[][]) => {
+    const newMeals: any[] = [];
+
+    rows.forEach((meal, id) => {
+      if(meal[0]){
+        const menu = meal[0].split("\n").join(" ");
+        const proteins = meal[1].split("\n");
+        const mainSides = meal[2].split("\n");
+        const otherSides = meal[3].split("\n");
+
+        // const sidesArray
+        const mealArrays = proteins.map(protein => {
+          return [
+            mainSides.map(mainSide => {
+              return otherSides.map(otherSide => {
+                return [removeCommas(menu), removeCommas(protein), removeCommas(mainSide) , removeCommas(otherSide)]
+              })
+            })
+          ]
+        })
+
+        newMeals.push(...mealArrays[0][0][0]);
+      }
+    });
+
+    setMeals(newMeals);
+
+    setTimeout(() => {
+      setViewState(VIEW_STATES.LOADED)
+    }, 1000)
   }
 
   return (
     <div className="app">
       {
         viewState === VIEW_STATES.PRE_LOAD &&
-        <InputSpreadSheetLink {...{setSpreadSheetFile, spreadSheetFile, fetchData}} />
+        <InputSpreadSheetLink {...{setSpreadSheetFile, spreadSheetFile, fetchData, gardenerPhone, setGardenerPhone, setSpreadSheetLink, spreadSheetLink}} />
       }
       {
         viewState === VIEW_STATES.LOADED &&
-        <PickMeals {...{meals, headers, setViewState}} />
+        <PickMeals {...{meals, headers, setViewState, gardenerPhone}} />
       }
       {
         viewState === VIEW_STATES.LOADING &&

@@ -6,10 +6,11 @@ import SelectedMeals from './SelectedMeals';
 interface PickMealsProps {
   meals: string[][];
   headers: string[] | undefined;
-  setViewState: (state: string) => void
+  setViewState: (state: string) => void;
+  gardenerPhone: string;
 }
 
-const PickMeals: FunctionComponent<PickMealsProps> = ({meals, headers, setViewState}) => {
+const PickMeals: FunctionComponent<PickMealsProps> = ({meals, headers, setViewState, gardenerPhone}) => {
   const [selectedMealsId, setSelectedMealsId] = useState<number[]>([]);
   const [selectedMealsList, setSelectedMealsList] = useState<string[]>([]);
 
@@ -66,7 +67,7 @@ const PickMeals: FunctionComponent<PickMealsProps> = ({meals, headers, setViewSt
           <MealsTable {...{headers, meals, isInList, addItemToList}} />
         </div>
       </div>
-      <SelectedMeals selectedMealsList={selectedMealsList} />
+      <SelectedMeals {...{selectedMealsList, gardenerPhone}} />
     </div>
   )
 }
