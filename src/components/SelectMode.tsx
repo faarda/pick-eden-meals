@@ -15,7 +15,7 @@ const SelectMode: FunctionComponent<SelectModeProps> = ({gardenerPhone, setGarde
   return (
     <div>
       <input type="tel" placeholder="Gardener's phone e.g. 08012345676" value={gardenerPhone} onInput={(e: any) => setGardenerPhone(e.target.value)}
-        className={`p-3.5 border flex items-center justify-center w-full h-12 font-light rounded-lg placeholder-gray-300 text-sm outline-none focus:outline-none transition-colors duration-150 text-grey-400 border-gray-400 focus:border-primary`}
+        className={`appearance-none p-3.5 border flex items-center justify-center w-full h-12 font-light rounded-lg placeholder-gray-300 text-sm outline-none focus:outline-none transition-colors duration-150 text-grey-400 border-gray-400 focus:border-primary`}
       />
       {
         gardenerPhone !== '' && !(gardenerPhone.match(/^\d{11}$/)) &&

@@ -3,9 +3,7 @@ import InputSpreadSheetLink from '../components/InputSpreadSheetLink';
 import PickMeals from '../components/PickMeals';
 import readXlsFile from 'read-excel-file'
 import GSheetsApi from 'g-sheets-api'
-// import TableTop from 'tabletop'
 import { VIEW_MODES } from '../utils/constants';
-// import Papa from 'papaparse'
 
 
 const VIEW_STATES = {PRE_LOAD: 'pre-load', LOADING: 'loading', LOADED: 'loaded', ERROR: 'error'}
