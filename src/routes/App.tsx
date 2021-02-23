@@ -70,7 +70,7 @@ const App = () => {
   }
 
   const getMeals = (rows: string[][]) => {
-    const newMeals: any[] = [];
+    let newMeals: any[] = [];
 
     rows.forEach((meal, id) => {
       if(meal[0]){
@@ -90,7 +90,10 @@ const App = () => {
           ]
         })
 
-        newMeals.push(...mealArrays[0][0][0]);
+        mealArrays[0][0].forEach(items => {
+          newMeals.push(...items);
+        })
+
       }
     });
 
